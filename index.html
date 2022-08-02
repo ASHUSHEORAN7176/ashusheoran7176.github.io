@@ -19,7 +19,7 @@
 		var section=document.querySelector('section');
 
 		/* STEP 3: Store the URL of a JSON file in a variable */
-		var requestURL="https://github.com/ASHUSHEORAN7176/comp1073-10/blob/master/js/i-scream.json";
+		var requestURL="https://raw.githubusercontent.com/ASHUSHEORAN7176/ashusheoran7176.github.io/master/js/i-scream.json";
 
 		/* STEP 4: Create a new XHR object */
 		var request=new XMLHttpRequest();
@@ -37,19 +37,18 @@
 		request.onload=function(){
 			var isScreamInc = request.response;
 			console.log(isScreamInc);
+			populateHeader(isScreamInc);
+			topFlavors(isScreamInc);
 		} 
 		/* STEP 9: Build out the populateHeader() function */
-		function populateHeader(jsonOb){
+		function populateHeader(jsonObj){
 			var headerH1 = document.createElement('h1');
-			headerH1.textContent= jsonObj['companyName'];
+			headerH1.textContent = jsonObj['companyName'];
 			header.appendChild(headerH1);
-
-			var headerPara=document.createElement('p');
-			headerPara.textContent='HeadOffice:' +jsonOb['headOffice'] + 'Established: ' + jsonObj['established'];
+			var headerPara = document.createElement('p');
+			headerPara.textContent =  'HeadOffice: ' +jsonObj['headOffice'] + ', Established: ' + jsonObj['established'];
 			header.appendChild(headerPara);
-
 		}
-
 		/* STEP 10a: Assemble the showTopFlavors() function */
 			function topFlavors(jsonObj){
 
@@ -59,14 +58,14 @@
 				for(var i=0;i<topFlavors.length;i++){
 				// STEP 10d: build HTML elements for the content
 				var article = document.createElement('article');
-				var article = document.createElement('h2');
-				var article = document.createElement('img');
-				var article = document.createElement('p');
-				var article = document.createElement('p');
-				var article = document.createElement('ul');
+				var h2 = document.createElement('h2');
+				var img = document.createElement('img');
+				var p1 = document.createElement('p');
+				var p2 = document.createElement('p');
+				var list = document.createElement('ul');
 				// STEP 10e: Set the textContent property for each of the above elements (except the UL), based on the JSON content
-				img.setAttribute('src','https://github.com/ASHUSHEORAN7176/comp1073-10/tree/master/images' + topFlavors[i].image);
-				img.setAttribute('alt' + topFlavors[i].name);
+				img.setAttribute('src','https://raw.githubusercontent.com/ASHUSHEORAN7176/ashusheoran7176.github.io/master/images/' + topFlavors[i].image);
+				img.setAttribute('alt' , topFlavors[i].name);
 				h2.textContent=topFlavors[i].name;
 				p1.textContent='calories: ' + topFlavors[i].calories;
 				p2.textContent='Type: ' + topFlavors[i].type;
@@ -74,6 +73,8 @@
 				// STEP 10f: Build a loop for the ingredients array in the JSON
 				var ingredients=topFlavors[i].ingredients;
 				for(var j=0;j<ingredients.length;j++){
+					var listItem = document.createElement('li');
+					
 					listItem.textContent = ingredients[j];
 					list.appendChild(listItem);
 				}
@@ -84,7 +85,7 @@
 				article.appendChild(p1);
 				article.appendChild(p2);
 				article.appendChild(list);
-				article.appendChild(article); 
+				section.appendChild(article);
 
 				// STEP 10h: Append each complete ARTICLE element to the SECTION element
 
